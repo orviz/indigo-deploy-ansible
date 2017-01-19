@@ -1,0 +1,52 @@
+---
+
+- name: Add INDIGO-base YUM repository
+  yum_repository:
+    name: "INDIGO-{{ indigo_version_major }}-base"
+    description: "INDIGO-{{ indigo_version_major }} - Base"
+    file: indigo1-base
+    baseurl: "http://repo.indigo-datacloud.eu/repository/indigo/{{ indigo_version_major }}/centos7/$basearch/base"
+    protect: yes
+    enabled: yes
+    priority: 40
+    gpgcheck: yes
+    gpgkey: http://repo.indigo-datacloud.eu/repository/RPM-GPG-KEY-indigodc
+
+- name: Add INDIGO-updates YUM repository
+  yum_repository:
+    name: "INDIGO-{{ indigo_version_major }}-updates"
+    description: "INDIGO-{{ indigo_version_major }} - Updates"
+    file: indigo1-updates
+    baseurl: "http://repo.indigo-datacloud.eu/repository/indigo/{{ indigo_version_major }}/centos7/$basearch/updates"
+    protect: yes
+    enabled: yes
+    priority: 40
+    gpgcheck: yes
+    gpgkey: http://repo.indigo-datacloud.eu/repository/RPM-GPG-KEY-indigodc
+
+- name: Add INDIGO-third-party YUM repository
+  yum_repository:
+    name: "INDIGO-{{ indigo_version_major }}-third-party"
+    description: "INDIGO-{{ indigo_version_major }} - third-party"
+    file: indigo1-third-party
+    baseurl: "http://repo.indigo-datacloud.eu/repository/indigo/{{ indigo_version_major }}/centos7/$basearch/third-party"
+    protect: yes
+    enabled: yes
+    priority: 40
+    gpgcheck: yes
+    gpgkey: http://repo.indigo-datacloud.eu/repository/RPM-GPG-KEY-indigodc
+
+- name: Install YUM priorities package
+  yum:
+    name: yum-plugin-priorities
+    state: latest
+
+- name: Install OpenStack RDO (CentOS)
+  yum: 
+    name: centos-release-openstack-mitaka
+  when: (indigo_version_major == "1")
+
+#- name: Install EPEL repository (RedHat distros)
+#  yum:
+#    name: epel-release
+#    state: latest

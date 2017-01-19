@@ -1,0 +1,4 @@
+---
+# file: group_vars/infoprovider
+
+cloud_info_provider_middleware: "openstack"

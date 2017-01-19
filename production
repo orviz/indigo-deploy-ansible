@@ -1,0 +1,7 @@
+# file: production
+
+[reposync-servers]
+host_glance
+
+[infoprovider-servers]
+host_cloud

@@ -1,0 +1,25 @@
+
+- name: Install software-properties-common (Debian systems)
+  apt:
+    name: software-properties-common
+    state: latest
+
+- name: Install OpenStack cloud-archive ppa (Debian distros)
+  command: "add-apt-repository -y cloud-archive:mitaka"
+  when: (indigo_version_major == "1")
+
+- name: Add INDIGO-base APT repository
+  apt_repository:
+    repo: "deb [arch=amd64] http://repo.indigo-datacloud.eu/repository/indigo/{{ indigo_version_major }}/ubuntu/ trusty main third-party"
+    state: present
+    filename: indigo
+
+- name: Add INDIGO-updates APT repository
+  apt_repository:
+    repo: "deb [arch=amd64] http://repo.indigo-datacloud.eu/repository/indigo/1/ubuntu/ trusty-updates main third-party"
+    state: present
+    filename: indigo
+
+- apt_key:
+    url: "http://repo.indigo-datacloud.eu/repository/RPM-GPG-KEY-indigodc"
+    state: present

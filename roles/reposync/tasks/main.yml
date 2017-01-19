@@ -1,0 +1,58 @@
+---
+
+- include_vars: defaults/main.yml
+
+- name: OpenNebula credentials creation
+  template: src=one_auth.j2 dest={{ reposync_one_auth_file_path }}
+  when: (reposync_backend == "OpenNebula")
+
+- name: Install python dependencies (Ubuntu)
+  apt: name=python-apt state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install OpenJDK 8 PPA
+  apt_repository: repo='ppa:openjdk-r/ppa'
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install OpenJDK 8 (Ubuntu)
+  apt: name=openjdk-8-jre-headless state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install JSVC (Ubuntu)
+  apt: name=jsvc state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install reposync binary
+  apt: name=indigo-dc-reposync state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install OpenJDK 8 (CentOS)
+  yum: name=java-1.8.0-openjdk-headless state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'CentOS'
+
+- name: Install JSVC (CentOS)
+  yum: name=apache-commons-daemon-jsvc state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'CentOS'
+
+- name: Install reposync binary (CentOS)
+  yum: name=indigo-dc-reposync state=present update_cache=yes
+  become: true
+  when: ansible_distribution == 'CentOS'
+
+- name: Configuration creation
+  template: src=reposync.properties.j2 dest="/etc/indigo-reposync/reposync.properties"
+
+- name: Update repolist file
+  blockinfile:
+    dest: /etc/indigo-reposync/repolist
+    create: yes
+    block: |
+      {{ item }}
+  with_items: "{{ reposync_repolist_items }}"

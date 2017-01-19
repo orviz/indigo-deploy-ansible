@@ -1,0 +1,6 @@
+---
+- hosts: reposync-servers
+  roles:
+    - role: "indigo"
+      indigo_version_major: "1"
+    - role: "reposync"

@@ -1,0 +1,8 @@
+---
+# file: group_vars/reposync
+
+reposync_backend: "OpenStack"
+reposync_token: "TestToken"
+reposync_os_username: "demo"
+reposync_os_password: "secret"
+reposync_os_url: "https://keystone.example.org:5000/v3/"

@@ -1,0 +1,5 @@
+---
+# file: site.yml
+
+- include: reposync.yml
+- include: infoprovider.yml
