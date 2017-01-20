@@ -1,5 +1,5 @@
 ---
-- hosts: infoprovider-servers
+- hosts: infoprovider
   roles:
     - role: "indigo"
       indigo_version_major: "1"

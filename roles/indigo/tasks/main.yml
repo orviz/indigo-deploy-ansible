@@ -3,6 +3,9 @@
     msg: "Exiting: <<indigo_version_major>> not defined!"
   when: indigo_version_major is not defined
 
+- debug:
+    msg: ">>>>>>>>>>>>>>> {{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
 - assert:
     that: "ansible_version.full | version_compare('2.1', '>=')"
     msg: "You must update Ansible to at least 2.1 to use this version of INDIGO repository setup."
@@ -13,4 +16,4 @@
 
 - name: Ubuntu14 specific tasks
   include: Ubuntu14.yml 
-  when: (ansible_distribution == "Ubuntu") and (ansible_distribution_major_version == "14")
+  when: (ansible_distribution == "Ubuntu") and (ansible_distribution_major_version == "16")

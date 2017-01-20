@@ -1,5 +1,5 @@
 ---
-- hosts: reposync-servers
+- hosts: reposync
   roles:
     - role: "indigo"
       indigo_version_major: "1"

@@ -1,7 +1,7 @@
 # file: production
 
-[reposync-servers]
+[reposync]
 host_glance
 
-[infoprovider-servers]
+[infoprovider]
 host_cloud
