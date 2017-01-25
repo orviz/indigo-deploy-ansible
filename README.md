@@ -25,3 +25,10 @@ products and the hosts where these products will be deployed. e.g.:
 ```
     # ansible-playbook -i production site.yml
 ```
+
+Deployment as OpenStack VMs
+---------------------------
+
+Deployment as Docker containers
+-------------------------------
+
